@@ -15,8 +15,9 @@ int main()
     quicksort(list, length);
 
     for(int i = 0; i < length; i++){
-        printf("%d", list[i]);
+        printf("%d ", list[i]);
     }
+    printf("\n");
 
     return 0;
 }
