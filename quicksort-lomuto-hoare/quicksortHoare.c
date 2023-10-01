@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
 
 void swap(int *a, int *b);
 void quicksort(int array[], int length);
@@ -30,8 +28,6 @@ void swap(int *a, int *b)
 
 void quicksort(int array[], int length)
 {
-    srand(time(NULL));
-
     quicksort_recursion(array, 0, length -1);
 }
 
@@ -40,31 +36,30 @@ void quicksort_recursion(int array[], int start, int end)
     if(start < end)
     {
     int pivot_index = partition(array, start, end);
-    quicksort_recursion(array, start, pivot_index -1);
+    quicksort_recursion(array, start, pivot_index);
     quicksort_recursion(array, pivot_index +1, end);
     }
 }
 
 int partition(int array[], int start, int end)
 {
-    int pivot_index = start + (rand() % (end - start));
+    int pivot_value = array[start];
+    int i = start -1;
+    int j = end +1;
 
-    if(pivot_index != end)
-    {
-        swap(&array[pivot_index], &array[end]);
-    }
+    while(1){
 
-    int pivot_value = array[end];
-    int i = start;
-
-    for(int j = start; j < end; j++)
-    {
-        if(array[j] <= pivot_value)
-        {
-            swap(&array[i], &array[j]);
+        do{
             i++;
+        }while(array[i] < pivot_value);
+
+        do{
+            j--;
+        }while(array[j] > pivot_value);
+        if(i >= j){
+            return j;
         }
+
+        swap(&array[i], &array[j]);
     }
-    swap(&array[i], &array[end]);
-    return i;
 }
